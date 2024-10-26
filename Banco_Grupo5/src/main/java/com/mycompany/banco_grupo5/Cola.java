@@ -27,6 +27,18 @@ public class Cola {
     public void setUltimo(Nodo ultimo) {
         this.ultimo = ultimo;
     }
+
+    
+    public Ticket crearTicket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipo) {
+        return new Ticket(nombre, id, edad, horaCreacion, null, tramite, tipo);
+    }
+
+    public void agregarTicket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipo) {
+        Ticket nuevoTicket = crearTicket(nombre, id, edad, horaCreacion, tramite, tipo);
+        Nodo nuevoNodo = new Nodo(nuevoTicket);
+        hacerFila(nuevoNodo);
+    }
+
     
     public void hacerFila(Nodo elemento)
     {
