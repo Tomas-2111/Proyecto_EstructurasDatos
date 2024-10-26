@@ -41,7 +41,7 @@ public class Banco_Grupo5 {
 
             switch (opcion) {
                 case "1":
-                    /*Aqui es para asignar el ticket */
+                    /*Aqui es para asignar el ticket*/
                     String nombre = JOptionPane.showInputDialog("Ingrese el nombre del ticket:");
                     int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ticket:"));
                     String edad = JOptionPane.showInputDialog("Ingrese la edad:");
