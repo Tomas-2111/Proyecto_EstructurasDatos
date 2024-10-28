@@ -6,7 +6,6 @@ package com.mycompany.banco_grupo5;
 
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Tomás Alfaro
@@ -20,6 +19,7 @@ public class Banco_Grupo5 {
         String pass = "";
 
         int tipo = 0;
+
         while (tipo == 0) {
             JOptionPane.showMessageDialog(null, "Bienvenido\nFavor ingrese el usuario y contraseña");
             user = JOptionPane.showInputDialog("Ingrese el usuario");
@@ -30,18 +30,23 @@ public class Banco_Grupo5 {
             }
         }
 
-        Cola cola = new Cola(); 
+        Configuracion conf = new Configuracion();
+        conf.cargarConfiguracion();
+        conf.configurarPrograma(); // Save configuration
+        conf.leerConfiguracion(); // Load configuration
+
+        Cola cola = new Cola();
 
         while (true) {
             String opcion = JOptionPane.showInputDialog(
                     "Bienvenido\nFavor elija una opción:\n1. Ingresar Ticket\n2. Atender Tickets\n3. Salir");
             if (opcion == null || opcion.equals("3")) {
-                break; 
+                break;
             }
 
             switch (opcion) {
                 case "1":
-                    /*Aqui es para asignar el ticket*/
+                    /* Aqui es para asignar el ticket */
                     String nombre = JOptionPane.showInputDialog("Ingrese el nombre del ticket:");
                     int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ticket:"));
                     String edad = JOptionPane.showInputDialog("Ingrese la edad:");
