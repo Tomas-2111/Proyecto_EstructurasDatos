@@ -32,8 +32,8 @@ public class Banco_Grupo5 {
 
         Configuracion conf = new Configuracion();
         conf.cargarConfiguracion();
-        conf.configurarPrograma(); // Save configuration
-        conf.leerConfiguracion(); // Load configuration
+        conf.configurarPrograma();
+        conf.leerConfiguracion();
 
         Cola cola = new Cola();
 
