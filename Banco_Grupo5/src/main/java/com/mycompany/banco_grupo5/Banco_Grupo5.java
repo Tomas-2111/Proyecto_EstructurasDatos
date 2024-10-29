@@ -68,14 +68,14 @@ public class Banco_Grupo5 {
 
                 case "2":
 
-                    if (cola.getFrente() != null) {
-                        Ticket ticketAtender = cola.getFrente().getTicket();
-                        JOptionPane.showMessageDialog(null, "Atendiendo Ticket:\nNombre: " + ticketAtender.getNombre()
-                                + "\nID: " + ticketAtender.getId());
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No hay tickets en la cola.");
-                    }
+//                    if (cola.getFrente() != null) {
+//                        Ticket ticketAtender = cola.getFrente().getTicket();
+//                        JOptionPane.showMessageDialog(null, "Atendiendo Ticket:\nNombre: " + ticketAtender.getNombre()
+//                                + "\nID: " + ticketAtender.getId());
+//
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "No hay tickets en la cola.");
+//                    }
                     break;
 
                 default:
@@ -92,6 +92,8 @@ public class Banco_Grupo5 {
         int cantidadCola1=colaNormall.contar();
         int cantidadCola2=colaNormal2.contar();
         int cantidadCola3=colaNormal3.contar();
+        int cantidadPreferencial=colaPreferencial.contar();
+        int cantidadRapida= colaTramiteRapido.contar();
         int numeroFila=0;
         String caja="";
         System.out.println("Cantidad: "+cantidadCola1);
@@ -99,7 +101,7 @@ public class Banco_Grupo5 {
         int hours  = locaDate.getHour();
         int minutes = locaDate.getMinute();
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del ticket:");
-        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del ticket:"));
+        int id = cantidadCola1+cantidadCola2+cantidadCola3+cantidadPreferencial+cantidadRapida+1;
         String edad = JOptionPane.showInputDialog("Ingrese la edad:");
         String horaCreacion = hours+":"+minutes;
         String tramite = JOptionPane.showInputDialog("Ingrese el trámite:\nD: Depósitos\nR: Retiros\nC: Cambio de Divisa");
@@ -109,13 +111,17 @@ public class Banco_Grupo5 {
         Ticket nuevoTicket = new Ticket(nombre, id, edad, horaCreacion, tramite, tipoTicket);
         nuevoTicket.setHoraAtencion(-1);
         switch (tipoTicket.toLowerCase() ) {
-            case "P":
+            case "p":
                 colaPreferencial.agregarTicket(nuevoTicket);
+                numeroFila=cantidadPreferencial+1;
+                caja="Caja Preferencial";
                 break;
-            case "A":
+            case "a":
                 colaTramiteRapido.agregarTicket(nuevoTicket);
+                numeroFila=cantidadRapida+1;
+                caja="Caja Rápida";
                 break;
-            case "B":
+            case "b":
             default:
                 if(cantidadCola1<=cantidadCola2 && cantidadCola1<=cantidadCola3){
                     colaNormall.agregarTicket(nuevoTicket);
