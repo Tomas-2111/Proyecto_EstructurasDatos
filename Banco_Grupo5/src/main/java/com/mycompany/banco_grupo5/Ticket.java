@@ -14,78 +14,69 @@ public class Ticket {
     private int id;
     private String edad;
     private String horaCreacion;
-    private String horaAtencion;
     private String tramite;
-    private String tipo;
+    private String tipoTicket;
+    private long horaAtencion; 
+   
 
-    public Ticket() {
-    }
-
-    public Ticket(String nombre, int id, String edad, String horaCreacion, String horaAtencion, String tramite, String tipo) {
+    public Ticket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipoTicket) {
         this.nombre = nombre;
         this.id = id;
         this.edad = edad;
         this.horaCreacion = horaCreacion;
-        this.horaAtencion = horaAtencion;
         this.tramite = tramite;
-        this.tipo = tipo;
+        this.tipoTicket = tipoTicket;
+        this.horaAtencion = -1;
     }
 
     public String getNombre() {
-        return nombre;
+         return nombre; 
+        }
+    public int getId() { 
+        return id; 
     }
-
+    public String getEdad() { 
+        return edad;
+     }
+    public String getHoraCreacion() {
+         return horaCreacion; 
+        }
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getEdad() {
-        return edad;
-    }
-
     public void setEdad(String edad) {
         this.edad = edad;
-    }
-
-    public String getHoraCreacion() {
-        return horaCreacion;
     }
 
     public void setHoraCreacion(String horaCreacion) {
         this.horaCreacion = horaCreacion;
     }
 
-    public String getHoraAtencion() {
-        return horaAtencion;
-    }
-
-    public void setHoraAtencion(String horaAtencion) {
-        this.horaAtencion = horaAtencion;
-    }
-
-    public String getTramite() {
-        return tramite;
-    }
-
     public void setTramite(String tramite) {
         this.tramite = tramite;
     }
 
-    public String getTipo() {
-        return tipo;
+    public void setTipoTicket(String tipoTicket) {
+        this.tipoTicket = tipoTicket;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public String getTramite() { 
+        return tramite;
+     }
+    public String getTipoTicket() { 
+        return tipoTicket; 
     }
+    public long getHoraAtencion() {
+         return horaAtencion;
+         }
+    public void setHoraAtencion(long horaAtencion) {
+         this.horaAtencion = horaAtencion; 
+        }
     
     
     

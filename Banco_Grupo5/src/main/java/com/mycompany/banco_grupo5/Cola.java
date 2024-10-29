@@ -10,7 +10,7 @@ package com.mycompany.banco_grupo5;
  */
 public class Cola {
     private Nodo frente;
-    private Nodo ultimo;
+    private Nodo fin;
 
     public Nodo getFrente() {
         return frente;
@@ -21,37 +21,40 @@ public class Cola {
     }
 
     public Nodo getUltimo() {
-        return ultimo;
+        return fin;
     }
 
-    public void setUltimo(Nodo ultimo) {
-        this.ultimo = ultimo;
+    public void setfin(Nodo fin) {
+        this.fin = fin;
     }
 
     
-    public Ticket crearTicket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipo) {
-        return new Ticket(nombre, id, edad, horaCreacion, null, tramite, tipo);
-    }
 
-    public void agregarTicket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipo) {
-        Ticket nuevoTicket = crearTicket(nombre, id, edad, horaCreacion, tramite, tipo);
-        Nodo nuevoNodo = new Nodo(nuevoTicket);
-        hacerFila(nuevoNodo);
+    public void agregarTicket(Ticket ticket) {
+        Nodo nuevoNodo = new Nodo(ticket);
+    
+        if (fin == null) {
+            frente = nuevoNodo;
+            fin = nuevoNodo;
+        } else {
+            fin.setAtras(nuevoNodo);;
+            fin = nuevoNodo;
+        }
     }
 
     
     public void hacerFila(Nodo elemento)
     {
-        if(frente == null) // La fila está vacía
+        if(frente == null)
         {
             frente = elemento;
-            ultimo = elemento;
+            fin = elemento;
         }
         else
         {
            
-            ultimo.setAtras(elemento);
-            ultimo = elemento;
+            fin.setAtras(elemento);
+            fin = elemento;
             
         }
     }

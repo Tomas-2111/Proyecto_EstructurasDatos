@@ -30,7 +30,10 @@ public class Banco_Grupo5 {
             }
         }
 
-        Cola cola = new Cola(); 
+        Cola cola = new Cola();
+        Cola colaNormal = new Cola();
+        Cola colaPreferencial = new Cola();
+        Cola colaTramiteRapido = new Cola();
 
         while (true) {
             String opcion = JOptionPane.showInputDialog(
@@ -47,11 +50,32 @@ public class Banco_Grupo5 {
                     String edad = JOptionPane.showInputDialog("Ingrese la edad:");
                     String horaCreacion = JOptionPane.showInputDialog("Ingrese la hora de creación:");
                     String tramite = JOptionPane.showInputDialog("Ingrese el trámite:");
-                    String tipoTicket = JOptionPane.showInputDialog("Ingrese el tipo de ticket:");
+                    String tipoTicket = JOptionPane.showInputDialog("Ingrese el tipo de ticket (normal, preferencial, tramite rapido)");
+                    
+                    
+                    Ticket nuevoTicket = new Ticket(nombre, id, edad, horaCreacion, tramite, tipoTicket);
+                    nuevoTicket.setHoraAtencion(-1);
+                    switch (tipoTicket.toLowerCase()) {
+                        case "preferencial":
+                            colaPreferencial.agregarTicket(nuevoTicket);
+                            break;
+                        case "tramite rapido":
+                            colaTramiteRapido.agregarTicket(nuevoTicket);
+                            break;
+                        case "normal":
+                        default:
+                            colaNormal.agregarTicket(nuevoTicket);
+                            break;
+                    }
+                     /*Aqui muestro la info del ticket */
+                     JOptionPane.showMessageDialog(null, "Ticket ingresado exitosamente:\n" +
+                     "Nombre: " + nombre + "\nID: " + id + "\nEdad: " + edad + 
+                     "\nHora de Creación: " + horaCreacion + "\nTrámite: " + tramite +
+                     "\nTipo de Ticket: " + tipoTicket +
+                     "\nCola: " + (tipoTicket.equalsIgnoreCase("preferencial") ? "Preferencial" : 
+                                   tipoTicket.equalsIgnoreCase("tramite rapido") ? "Trámite Rápido" : "Normal"));
 
-                    cola.agregarTicket(nombre, id, edad, horaCreacion, tramite, tipoTicket);
-                    JOptionPane.showMessageDialog(null, "Ticket ingresado exitosamente.");
-                    break;
+             break;
 
                 case "2":
 
