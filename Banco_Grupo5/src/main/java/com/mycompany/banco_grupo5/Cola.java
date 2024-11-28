@@ -43,21 +43,7 @@ public class Cola {
     }
 
     
-    public void hacerFila(Nodo elemento)
-    {
-        if(frente == null)
-        {
-            frente = elemento;
-            fin = elemento;
-        }
-        else
-        {
-           
-            fin.setAtras(elemento);
-            fin = elemento;
-            
-        }
-    }
+    
     
     public Nodo atender()
     {
@@ -74,13 +60,9 @@ public class Cola {
     
     public int contar(){
         int contador=0;
-        Nodo aux=frente;
+        Nodo aux=fin;
         if(aux!=null){//Si la cola no esta vacía existe al menos 1
-           contador=1;
-           while(aux.getAtras()!=null){
-                contador+=1;
-                aux=aux.getAtras();
-            } 
+           contador=fin.getTicket().getId(); 
         }
         
         return contador;

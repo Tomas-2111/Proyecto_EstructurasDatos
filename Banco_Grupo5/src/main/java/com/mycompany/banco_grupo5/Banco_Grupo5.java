@@ -13,12 +13,7 @@ import javax.swing.JOptionPane;
  */
 
 public class Banco_Grupo5 {
-    static Cola cola = new Cola();
-    static Cola colaNormall = new Cola();
-    static Cola colaNormal2 = new Cola();
-    static Cola colaNormal3 = new Cola();
-    static Cola colaPreferencial = new Cola();
-    static Cola colaTramiteRapido = new Cola();
+    static GestionColas gestion= new GestionColas();
 
     public static void main(String[] args) {
                 
@@ -63,7 +58,7 @@ public class Banco_Grupo5 {
             switch (opcion) {
                 case "1":
                     /* Aqui es para asignar el ticket */
-                    ingresarTicket();
+                    gestion.ingresarTicket();
                     break;
 
                 case "2":
@@ -88,75 +83,7 @@ public class Banco_Grupo5 {
     }
     
     
-    public static void ingresarTicket(){
-        int cantidadCola1=colaNormall.contar();
-        int cantidadCola2=colaNormal2.contar();
-        int cantidadCola3=colaNormal3.contar();
-        int cantidadPreferencial=colaPreferencial.contar();
-        int cantidadRapida= colaTramiteRapido.contar();
-        int numeroFila=0;
-        String caja="";
-        System.out.println("Cantidad: "+cantidadCola1);
-        LocalDateTime locaDate = LocalDateTime.now();//Obtiene hora actual
-        int hours  = locaDate.getHour();
-        int minutes = locaDate.getMinute();
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del ticket:");
-        int id = cantidadCola1+cantidadCola2+cantidadCola3+cantidadPreferencial+cantidadRapida+1;
-        String edad = JOptionPane.showInputDialog("Ingrese la edad:");
-        String horaCreacion = hours+":"+minutes;
-        String tramite = JOptionPane.showInputDialog("Ingrese el trámite:\nD: Depósitos\nR: Retiros\nC: Cambio de Divisa");
-        String tipoTicket = JOptionPane.showInputDialog("Ingrese el tipo de ticket:\nP: Preferencial\nA: Un solo trámite\nB: Dos o más trámites");
-
-
-        Ticket nuevoTicket = new Ticket(nombre, id, edad, horaCreacion, tramite, tipoTicket);
-        nuevoTicket.setHoraAtencion(-1);
-        switch (tipoTicket.toLowerCase() ) {
-            case "p":
-                colaPreferencial.agregarTicket(nuevoTicket);
-                numeroFila=cantidadPreferencial+1;
-                caja="Caja Preferencial";
-                break;
-            case "a":
-                colaTramiteRapido.agregarTicket(nuevoTicket);
-                numeroFila=cantidadRapida+1;
-                caja="Caja Rápida";
-                break;
-            case "b":
-            default:
-                if(cantidadCola1<=cantidadCola2 && cantidadCola1<=cantidadCola3){
-                    colaNormall.agregarTicket(nuevoTicket);
-                    numeroFila=cantidadCola1+1;
-                    caja="Caja 1";
-                    break;
-                    
-                }else  if(cantidadCola2<=cantidadCola1 && cantidadCola2<=cantidadCola3){
-                    colaNormal2.agregarTicket(nuevoTicket);
-                    numeroFila=cantidadCola2+1;
-                    caja="Caja 2";
-                    break;
-                }else if(cantidadCola3<=cantidadCola1 && cantidadCola3<=cantidadCola2){
-                    colaNormal3.agregarTicket(nuevoTicket);
-                    numeroFila=cantidadCola3+1;
-                    caja="Caja 3";
-                    break;
-                }else{
-                    colaNormall.agregarTicket(nuevoTicket);
-                    numeroFila=cantidadCola1+1;
-                    caja="Caja 1";
-                    break;
-                }
-               
-        }
-         /*Aqui muestro la info del ticket */
-         JOptionPane.showMessageDialog(null, "Ticket ingresado exitosamente:\n" +
-         "Nombre: " + nombre + "\nID: " + id + "\nEdad: " + edad + "\nCaja: "+caja+
-         "\nHora de Creación: " + horaCreacion+ "\nNúmero atención: "+ numeroFila + "\nTrámite: " + tramite +
-         "\nTipo de Ticket: " + tipoTicket +
-         "\nCola: " + (tipoTicket.equalsIgnoreCase("P") ? "Preferencial" : 
-                       tipoTicket.equalsIgnoreCase("A") ? "Trámite Rápido" : "Dos o más tramites"));
-
-
-    }
+    
 
 }
 
