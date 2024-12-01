@@ -60,15 +60,7 @@ public class Banco_Grupo5 {
                     break;
 
                 case "2":
-
-//                    if (cola.getFrente() != null) {
-//                        Ticket ticketAtender = cola.getFrente().getTicket();
-//                        JOptionPane.showMessageDialog(null, "Atendiendo Ticket:\nNombre: " + ticketAtender.getNombre()
-//                                + "\nID: " + ticketAtender.getId());
-//
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No hay tickets en la cola.");
-//                    }
+                    gestion.atender();
                     break;
 
                 default:
