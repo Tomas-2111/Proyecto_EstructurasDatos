@@ -60,15 +60,9 @@ public class Banco_Grupo5 {
                     break;
 
                 case "2":
-
-//                    if (cola.getFrente() != null) {
-//                        Ticket ticketAtender = cola.getFrente().getTicket();
-//                        JOptionPane.showMessageDialog(null, "Atendiendo Ticket:\nNombre: " + ticketAtender.getNombre()
-//                                + "\nID: " + ticketAtender.getId());
-//
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No hay tickets en la cola.");
-//                    }
+                    int cola=Integer.valueOf(JOptionPane.showInputDialog(
+                    "Favor elija una cola:\n1. Cola 1\n2. Cola 2\n3. Cola 3\n4. Cola Preferencial\n5. Cola Rápida"));
+                    gestion.atenderTicket(cola);
                     break;
 
                 default:

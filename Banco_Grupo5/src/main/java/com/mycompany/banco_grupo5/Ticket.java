@@ -16,7 +16,7 @@ public class Ticket {
     private String horaCreacion;
     private String tramite;
     private String tipoTicket;
-    private long horaAtencion; 
+    private String horaAtencion; 
    
 
     public Ticket(String nombre, int id, String edad, String horaCreacion, String tramite, String tipoTicket) {
@@ -26,7 +26,7 @@ public class Ticket {
         this.horaCreacion = horaCreacion;
         this.tramite = tramite;
         this.tipoTicket = tipoTicket;
-        this.horaAtencion = -1;
+        this.horaAtencion = "-1";
     }
 
     public String getNombre() {
@@ -71,10 +71,10 @@ public class Ticket {
     public String getTipoTicket() { 
         return tipoTicket; 
     }
-    public long getHoraAtencion() {
+    public String getHoraAtencion() {
          return horaAtencion;
          }
-    public void setHoraAtencion(long horaAtencion) {
+    public void setHoraAtencion(String horaAtencion) {
          this.horaAtencion = horaAtencion; 
         }
     

@@ -4,6 +4,8 @@
  */
 package com.mycompany.banco_grupo5;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Tomás Alfaro
@@ -57,6 +59,21 @@ public class Cola {
         
         return actual;
     }
+    
+    public void eliminarTicket() {
+        if (frente != null) {
+            Nodo nodoAEliminar = frente; 
+            frente = frente.getAtras(); 
+
+            if (frente == null) {
+                fin = null; 
+            }
+            nodoAEliminar.setAtras(null);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay tickets en la cola para eliminar.");
+        }
+    }
+    
     
     public int contar(){
         int contador=0;

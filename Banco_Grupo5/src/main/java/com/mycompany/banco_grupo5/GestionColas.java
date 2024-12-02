@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  * @author Tomás Alfaro
  */
 public class GestionColas {
-    Cola cola = new Cola();
     Serializacion serializacion= new Serializacion();
+    Cola colaAtendidos= serializacion.cargarCola("listaAtendidos.json")==null?new Cola():serializacion.cargarCola("listaAtendidos.json");
     Cola colaNormall = serializacion.cargarCola("listaCola1.json")==null?new Cola():serializacion.cargarCola("listaCola1.json");
     Cola colaNormal2 =serializacion.cargarCola("listaCola2.json")==null?new Cola():serializacion.cargarCola("listaCola2.json");
     Cola colaNormal3 = serializacion.cargarCola("listaCola3.json")==null?new Cola():serializacion.cargarCola("listaCola3.json");
@@ -42,7 +42,7 @@ public class GestionColas {
 
 
         Ticket nuevoTicket = new Ticket(nombre, id, edad, horaCreacion, tramite, tipoTicket);
-        nuevoTicket.setHoraAtencion(-1);
+        //nuevoTicket.setHoraAtencion(-1);
         switch (tipoTicket.toLowerCase() ) {
             case "p":
                 colaPreferencial.agregarTicket(nuevoTicket);
@@ -96,8 +96,69 @@ public class GestionColas {
 
     }
     
-    public void cargarCola(Cola cola,String archivo){
+    
+    public void atenderTicket(int cola){
+        LocalDateTime localDate = LocalDateTime.now();//Obtiene hora actual
+        Nodo ticketAtendido=null;
+        switch(cola){
+            case 1:
+                ticketAtendido=colaNormall.atender();
+                serializacion.guardarCola(colaNormall, "listaCola1.json");
+                break;
+            case 2:
+                ticketAtendido=colaNormal2.atender();
+                serializacion.guardarCola(colaNormal2, "listaCola2.json");
+                break;
+            case 3:
+                ticketAtendido=colaNormal3.atender();
+                serializacion.guardarCola(colaNormal2, "listaCola3.json");
+                break;
+            case 4:
+                ticketAtendido=colaPreferencial.atender();
+                serializacion.guardarCola(colaPreferencial, "listaPreferencial.json");
+                break;
+            case 5:
+                ticketAtendido=colaTramiteRapido.atender();
+                serializacion.guardarCola(colaTramiteRapido, "listaRapida.json");
+                break;
+        }
+        ticketAtendido.getTicket().setHoraAtencion(String.valueOf(localDate));
+        colaAtendidos.agregarTicket(ticketAtendido.getTicket());
+        JOptionPane.showMessageDialog(null, "Atendiendo ticket\n"+ticketAtendido.getTicket().getId()
+        +"\nTrámite: "+ticketAtendido.getTicket().getTramite());
+        serializacion.guardarCola(colaAtendidos, "listaAtendidos.json");
+        tramite(ticketAtendido.getTicket().getTramite());
         
     }
     
+    public void tramite(String tramite){
+        float monto=0;
+        switch(tramite.toUpperCase()){
+            case "D":
+                monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto a depositar"));
+                JOptionPane.showMessageDialog(null, "Monto depositado : ₡"+monto);
+                System.out.println("Deposito");
+                break;
+            case "R":
+                monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto a retirar"));
+                JOptionPane.showMessageDialog(null, "Monto depositado : ₡"+monto);
+                //Retiro
+                System.out.println("Retiro");
+                break;
+            case "C":
+                //Cambio divisas
+                int opcion=Integer.valueOf(JOptionPane.showInputDialog("Ingrese la opcion deseada:\n1. Colones a dolares\n2. Dolares a colones"));
+                if(opcion==1){
+                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en colones a cambiar:"));
+                    
+                    //Conectar servicio web
+                }else if(opcion==2){
+                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en dolares a cambiar:"));
+                     //Conectar servicio web
+                }
+                System.out.println("Cambio");
+                break;
+        }
+    }
+
 }
