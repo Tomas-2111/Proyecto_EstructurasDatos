@@ -32,14 +32,16 @@ public class Cola {
 
     public void agregarTicket(Ticket ticket) {
         Nodo nuevoNodo = new Nodo(ticket);
-    
-        if (fin == null) {
+        if (frente == null) {
             frente = nuevoNodo;
-            fin = nuevoNodo;
         } else {
-            fin.setAtras(nuevoNodo);;
-            fin = nuevoNodo;
+            Nodo temp = frente;
+            while (temp.getAtras() != null) {
+                temp = temp.getAtras();
+            }
+            temp.setAtras(nuevoNodo);
         }
+    
     }
 
     

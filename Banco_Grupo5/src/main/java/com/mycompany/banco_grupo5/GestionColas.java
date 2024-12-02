@@ -71,13 +71,16 @@ public class GestionColas {
                     numeroFila=cantidadCola2+1;
                     caja="Caja 2";
                     break;
-                }else if(cantidadCola3<=cantidadCola1 && cantidadCola3<=cantidadCola2){
+                }
+                else if(cantidadCola3 <= cantidadCola1 && cantidadCola3 <= cantidadCola2) {
                     colaNormal3.agregarTicket(nuevoTicket);
                     serializacion.guardarCola(colaNormal3, "listaCola3.json");
-                    numeroFila=cantidadCola3+1;
-                    caja="Caja 3";
+                    numeroFila = cantidadCola3 + 1;
+                    caja = "Caja 3";
                     break;
-                }else{
+                }
+
+                else{
                     colaNormall.agregarTicket(nuevoTicket);
                     numeroFila=cantidadCola1+1;
                     caja="Caja 1";
@@ -95,74 +98,73 @@ public class GestionColas {
 
 
     }
+    
     public void atender() {
-        // Revisar y mostrar los tickets guardados
+
         serializacion.revisarTicketsGuardados();
-    
-        String ticketsDisponibles = "Tickets disponibles para atender:\n";
-        int contador = 1;
-        Cola[] colas = {colaPreferencial, colaTramiteRapido, colaNormall, colaNormal2, colaNormal3};
-    
-        // Mostrar tickets de todas las colas
+
+        StringBuilder ticketsDisponibles = new StringBuilder("Tickets disponibles para atender:\n");
+        int contador = 0;
+        Cola[] colas = { colaPreferencial, colaTramiteRapido, colaNormall, colaNormal2, colaNormal3 };
         for (Cola cola : colas) {
             Nodo nodo = cola.getFrente();
             while (nodo != null) {
                 Ticket ticket = nodo.getTicket();
-                ticketsDisponibles += contador + ". Nombre: " + ticket.getNombre() +
-                        ", ID: " + ticket.getId() + ", Trámite: " + ticket.getTramite() + "\n";
+                ticketsDisponibles.append(++contador).append(". Nombre: ").append(ticket.getNombre())
+                        .append(", ID: ").append(ticket.getId()).append(", Trámite: ").append(ticket.getTramite())
+                        .append("\n");
                 nodo = nodo.getAtras();
-                contador++;
             }
         }
-    
-        // Si no hay tickets disponibles
-        if (contador == 1) {
+        if (contador == 0) {
             JOptionPane.showMessageDialog(null, "No hay tickets en la cola.");
             return;
         }
-    
-        // Preguntar al usuario qué ticket desea atender
-        String seleccion = JOptionPane.showInputDialog(ticketsDisponibles + "Seleccione el número del ticket a atender:");
-    
-        // Validar la selección
+        String seleccion = JOptionPane
+                .showInputDialog(ticketsDisponibles.toString() + "Seleccione el número del ticket a atender:");
         try {
             int index = Integer.parseInt(seleccion);
-            if (index < 1 || index >= contador) {
+            if (index < 1 || index > contador) {
                 JOptionPane.showMessageDialog(null, "Selección no válida.");
                 return;
             }
-    
-            // Atender el ticket seleccionado
+
             Ticket ticketAtender = null;
             int actualIndex = 1;
-    
             for (Cola cola : colas) {
                 Nodo nodo = cola.getFrente();
                 while (nodo != null) {
                     if (actualIndex == index) {
                         ticketAtender = nodo.getTicket();
-                        cola.atender(); // Atender el ticket
-                        serializacion.guardarCola(cola, "lista" + (cola == colaPreferencial ? "Preferencial" : 
-                                                                      cola == colaTramiteRapido ? "Rapida" : 
-                                                                      cola == colaNormall ? "Cola1" : 
-                                                                      cola == colaNormal2 ? "Cola2" : "Cola3") + ".json");
+                        ticketAtender.setHoraAtencion(System.currentTimeMillis());
+                        cola.atender();
+                        serializacion
+                                .guardarCola(
+                                        cola, "lista"
+                                                + (cola == colaPreferencial ? "Preferencial"
+                                                        : cola == colaTramiteRapido ? "Rapida"
+                                                                : cola == colaNormall ? "Cola1"
+                                                                        : cola == colaNormal2 ? "Cola2" : "Cola3")
+                                                + ".json");
                         break;
                     }
                     nodo = nodo.getAtras();
                     actualIndex++;
                 }
-                if (ticketAtender != null) break; // Salir si se atendió el ticket
+                if (ticketAtender != null)
+                    break;
             }
-    
             if (ticketAtender != null) {
                 JOptionPane.showMessageDialog(null, "Atendiendo Ticket:\nNombre: " + ticketAtender.getNombre() +
-                        "\nID: " + ticketAtender.getId() + "\nTrámite: " + ticketAtender.getTramite());
+                        "\nID: " + ticketAtender.getId() + "\nTrámite: " + ticketAtender.getTramite() +
+                        "\nHora de Atención: " + ticketAtender.getHoraAtencion());
             }
-    
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Selección no válida.");
         }
     }
+
     public void mostrarTicketsGuardados() {
         serializacion.revisarTicketsGuardados();
     }

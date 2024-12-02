@@ -22,14 +22,15 @@ public class Serializacion {
         
     }
     
-    
-    
+  
     public void guardarCola(Cola cola, String archivo) {
         Gson gson = new GsonBuilder().create();
         try (FileWriter writer = new FileWriter(archivo)) {
             gson.toJson(cola, writer);
+            System.out.println("Cola guardada en " + archivo);
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al guardar la cola: " + e.getMessage());
         }
     }
     public Cola cargarCola(String archivo) {
