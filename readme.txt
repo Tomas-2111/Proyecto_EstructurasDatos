@@ -1,15 +1,13 @@
 Grupo 5 - Estructuras de Datos
 Integrantes:
 	Tomás Alfaro Guzmán
-	Steven Garro Leroy
-	Eduardo Poveda Benavides
-	Omer Jesús Flores Amador
+	Eduardo Poveda Benavides¡
 
-Avance 1:
+Avance 2:
 Se trabajo:
-	Inicio Sesión
-	Configuración de la información del banco
-	Método para agregar los tickets en las distintas colas
+	Persistencia de colas
+	Atender colas
+	Eliminación de ticketes
 
 Proyecto hecho en Maven
 JDK 17
