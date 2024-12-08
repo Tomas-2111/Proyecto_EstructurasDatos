@@ -6,14 +6,14 @@ package com.mycompany.banco_grupo5;
 import javax.swing.JOptionPane;
 
 /**
- *
+ *    
  * @author Tomás Alfaro
  */
 
 public class Banco_Grupo5 {
     static GestionColas gestion= new GestionColas();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
                 
         /* Banco
         3 cajas para clientes

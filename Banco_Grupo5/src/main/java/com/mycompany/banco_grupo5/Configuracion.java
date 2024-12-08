@@ -67,4 +67,7 @@ public class Configuracion {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    
+    
 }

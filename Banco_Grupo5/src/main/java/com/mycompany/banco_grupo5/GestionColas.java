@@ -4,6 +4,9 @@
  */
 package com.mycompany.banco_grupo5;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
@@ -97,9 +100,10 @@ public class GestionColas {
     }
     
     
-    public void atenderTicket(int cola){
+    public void atenderTicket(int cola)throws Exception{
         LocalDateTime localDate = LocalDateTime.now();//Obtiene hora actual
         Nodo ticketAtendido=null;
+        
         switch(cola){
             case 1:
                 ticketAtendido=colaNormall.atender();
@@ -131,8 +135,17 @@ public class GestionColas {
         
     }
     
-    public void tramite(String tramite){
+    public void tramite(String tramite) throws Exception{
         float monto=0;
+        ServicioBCCR servicio = new ServicioBCCR();
+        IndicadorEconomico indicadorVenta = servicio.obtenerIndicador(
+                "318", "26/11/2024", "26/11/2024",
+                "Tomás Alfaro", "N", "tojoalgu@gmail.com", "OMAGOG211O"
+        );
+        IndicadorEconomico indicadorCompra = servicio.obtenerIndicador(
+                "317", "26/11/2024", "26/11/2024",
+                "Tomás Alfaro", "N", "tojoalgu@gmail.com", "OMAGOG211O"
+        );
         switch(tramite.toUpperCase()){
             case "D":
                 monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto a depositar"));
@@ -149,16 +162,58 @@ public class GestionColas {
                 //Cambio divisas
                 int opcion=Integer.valueOf(JOptionPane.showInputDialog("Ingrese la opcion deseada:\n1. Colones a dolares\n2. Dolares a colones"));
                 if(opcion==1){
-                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en colones a cambiar:"));
+                    //Venta
+                    BigDecimal tipoCambioVenta = tipoCambio(indicadorVenta);
+                    tipoCambioVenta=tipoCambioVenta.setScale(2);
+                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en colones a cambiar.\nTipo de cambio ₡"+tipoCambioVenta));
+                    BigDecimal montoColones=BigDecimal.valueOf(monto);
+                    BigDecimal totalDolares=montoColones.divide(tipoCambioVenta, 2, RoundingMode.CEILING);
+                   
+                    JOptionPane.showMessageDialog(null, "Colones a convertir: "+monto
+                    +"\nDolares: $"+totalDolares);
                     
-                    //Conectar servicio web
                 }else if(opcion==2){
-                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en dolares a cambiar:"));
+                    //Compra
+                    BigDecimal tipoCambioCompra = tipoCambio(indicadorCompra);
+                    tipoCambioCompra=tipoCambioCompra.setScale(2);
+                    monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto en dolares a cambiar.\nTipo de cambio $"+tipoCambioCompra));
+                    BigDecimal montoDolares=BigDecimal.valueOf(monto);
+                    BigDecimal totalColones=montoDolares.multiply(tipoCambioCompra);
+                   
+                    JOptionPane.showMessageDialog(null, "Dolares a convertir: "+monto
+                    +"\nColones: ₡"+totalColones);
+                   
                      //Conectar servicio web
                 }
                 System.out.println("Cambio");
                 break;
         }
+    }
+    
+     public static BigDecimal tipoCambio(IndicadorEconomico indicadorEconomico) {
+        BigDecimal resultado=null;
+        // Verificando que no sea nulo
+        if (indicadorEconomico != null && indicadorEconomico.getDiffgram() != null) {
+            IndicadorEconomico.Diffgram diffgram = indicadorEconomico.getDiffgram();
+
+            if (diffgram.getDatosDeIndicadores() != null) {
+                IndicadorEconomico.DatosDeIndicadores datos = diffgram.getDatosDeIndicadores();
+
+                if (datos.getIndicadores() != null && !datos.getIndicadores().isEmpty()) {
+                    for (IndicadorEconomico.Indicador indicador : datos.getIndicadores()) {
+                        
+                        return indicador.getValor();
+                    }
+                } else {
+                    System.out.println("No hay indicadores en la respuesta.");
+                }
+            } else {
+                System.out.println("No hay datos de indicadores.");
+            }
+        } else {
+            System.out.println("El objeto indicadorEconomico está vacío.");
+        }        
+       return resultado;
     }
 
 }

@@ -39,7 +39,7 @@ public class Cola {
             frente = nuevoNodo;
             fin = nuevoNodo;
         } else {
-            fin.setAtras(nuevoNodo);;
+            fin.setAtras(nuevoNodo);
             fin = nuevoNodo;
         }
     }
