@@ -6,6 +6,7 @@ package com.mycompany.banco_grupo5;
 
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
@@ -47,9 +48,9 @@ public class Login {
             if(tipo!=0)
             {
                 //Si los datos están correctos los escribimos en el archivo
-                archivo.writeUTF("Inicio de sesion exitoso");//UTF es formato de texto enriquecido tipo Word
-                archivo.writeUTF("Hora: "+hours+":"+minutes);
-                archivo.writeUTF("Usuario: "+user);
+                archivo.writeUTF("Inicio de sesion exitoso el "+locaDate);//UTF es formato de texto enriquecido tipo Word
+                //archivo.writeUTF("Hora: "+hours+":"+minutes);
+                //archivo.writeUTF("Usuario: "+user);
                 //Debe cerrar ela rchivo una vez se deje utilizar
                 archivo.close();   
             }
