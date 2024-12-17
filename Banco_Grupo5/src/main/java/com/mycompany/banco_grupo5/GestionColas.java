@@ -154,7 +154,7 @@ public class GestionColas {
                 break;
             case "R":
                 monto=Float.valueOf(JOptionPane.showInputDialog("Ingrese el monto a retirar"));
-                JOptionPane.showMessageDialog(null, "Monto depositado : ₡"+monto);
+                JOptionPane.showMessageDialog(null, "Monto retirado : ₡"+monto);
                 //Retiro
                 System.out.println("Retiro");
                 break;
