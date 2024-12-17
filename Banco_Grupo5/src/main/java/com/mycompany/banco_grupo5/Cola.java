@@ -77,11 +77,15 @@ public class Cola {
     
     public int contar(){
         int contador=0;
-        Nodo aux=fin;
+        Nodo aux=frente;
         if(aux!=null){//Si la cola no esta vacía existe al menos 1
-           contador=fin.getTicket().getId(); 
+           contador=1;
+           while(aux.getAtras()!=null){
+                contador+=1;
+                aux=aux.getAtras();
+            }
+           
         }
-        
         return contador;
     }
 }
